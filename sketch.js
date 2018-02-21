@@ -1,7 +1,10 @@
+//dodger game idea from http://inventwithpython.com/blog/2012/02/20/i-need-practice-programming-49-ideas-for-game-clones-to-code/
+
 //globals
 var block_x_position = 320;
 var block_y_position = 0;
 var score = 0;
+var game_loop = true;
 
 function setup() {
 	createCanvas(640, 480);
@@ -9,9 +12,9 @@ function setup() {
 }
 //add to score every second
 window.setInterval(
-     function () {
+    function () {
          score = score + 1;
-     }, 1000);
+    }, 1000);
 	 
 function print_score(){
 	//add score
@@ -34,9 +37,9 @@ function ball_object(){
 
 function hit_detection(){
 	//hit detection
-	if (mouseX < block_x_position && mouseX > block_x_position - 80 && 350 < block_y_position && 350 > block_y_position - 80){
+	if (mouseX < block_x_position && mouseX > block_x_position - 100 && 350 < block_y_position && 350 > block_y_position - 100){
 		fill(128,128,0);
-		
+		game_loop = false;
 	}
 	
 }
@@ -48,13 +51,20 @@ function player(){
 }
 
 function draw() {
-	//clear screen
-	background(51);
-	//add score
 	
-	print_score();
-	ball_object();
-	hit_detection();
-	player();
+	if (game_loop){
+	
+		background(51);
+		print_score();
+		ball_object();
+		hit_detection();
+		player();
+		
+	}
+	else{
+	
+		background(255);
+	
+	}
 	
 }
