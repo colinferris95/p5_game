@@ -6,7 +6,7 @@ var block_y_position = 0;
 var score = 0;
 var game_loop = true;
 var button;
-var block;
+var blocks = [];
 
 function setup() {
 	
@@ -16,8 +16,11 @@ function setup() {
 	button.position(20, 65);
 	button.mousePressed(reset);
 	
-	block = new ball_object();
+	//block = new ball_object();
 	
+	for (var i=0; i<5; i++) {
+		blocks.push(new ball_object());
+	}
 }
 
 function draw() {
@@ -28,9 +31,14 @@ function draw() {
 		//game processes 
 		background(51);
 		print_score();
-		block.move();
-		block.display();
-		block.hitdetection();
+		
+		
+		for (var i=0; i<blocks.length; i++) {
+			blocks[i].move();
+			blocks[i].display();
+			blocks[i].hitdetection();
+		}
+		
 		player();
 		
 	}
@@ -64,9 +72,9 @@ function print_score(){
 }	
 //ball class
 function ball_object(){
-	this.x = block_x_position;
+	this.x = Math.floor(Math.random() * 640);
 	this.y = block_y_position;
-	this.width = 80;
+	this.width = 40;
 	this.accel = 8;
 	
 	this.move = function(){
@@ -101,13 +109,6 @@ function ball_object(){
 	
 }
 
-
-function hit_detection(x,y){
-	
-	//hit detection
-	
-	
-}
 
 function player(){
 	
