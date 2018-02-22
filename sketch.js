@@ -5,23 +5,49 @@ var block_x_position = 320;
 var block_y_position = 0;
 var score = 0;
 var game_loop = true;
-var input, button, greeting;
+var button;
+var block;
+
 function setup() {
+	
 	createCanvas(640, 480);
 	
+	button = createButton('reset');
+	button.position(20, 65);
+	button.mousePressed(reset);
 	
+	block = new ball_object();
+	
+}
 
-  button = createButton('reset');
-  button.position(20, 65);
-  button.mousePressed(reset);
-
- 
+function draw() {
+	
+	//start game loop
+	if (game_loop){
+		
+		//game processes 
+		background(51);
+		print_score();
+		block.move();
+		block.display();
+		block.hitdetection();
+		player();
+		
+	}
+	else{
+		
+		//fail screen
+		background(255);
+	
+	}
+	
 }
 
 function reset() {
 	
 	game_loop = true;
 	score = 0;
+	
 }
 //add to score every second
 window.setInterval(
@@ -30,56 +56,66 @@ window.setInterval(
     }, 1000);
 	 
 function print_score(){
+	
 	//add score
 	textSize(32);
 	text(score, 10, 30);
+	
 }	
-
+//ball class
 function ball_object(){
-	//make the ball move downward
-	block_y_position = block_y_position + 8;
-	if (block_y_position > 500){
-		//reset ball
-		block_y_position = 0;
-		block_x_position = Math.floor(Math.random() * 640);
+	this.x = block_x_position;
+	this.y = block_y_position;
+	this.width = 80;
+	this.accel = 8;
+	
+	this.move = function(){
+		this.y += this.accel;
+		
+		if (this.y > 500){
+		
+			//reset ball
+			this.y = 0;
+			this.x = Math.floor(Math.random() * 640);
+		
+		}
+	
+	}
+	
+	this.display = function(){
+		fill(50,205,50);
+		//draw ball
+		ellipse(this.x, this.y, this.width, this.width);
+	}
+	
+	this.hitdetection = function(){
+		
+		if (mouseX < this.x && mouseX > this.x - 130 && 350 < this.y && 350 > this.y - 130){
+			fill(128,128,0);
+			game_loop = false;
+			//end game
+		}
 		
 	}
-	fill(50,205,50);
-	//draw ball
-	ellipse(block_x_position, block_y_position, 80, 80);
+	
+	
 }
 
-function hit_detection(){
+
+function hit_detection(x,y){
+	
 	//hit detection
-	if (mouseX < block_x_position && mouseX > block_x_position - 100 && 350 < block_y_position && 350 > block_y_position - 100){
-		fill(128,128,0);
-		game_loop = false;
-		//end game
-	}
+	
 	
 }
 
 function player(){
+	
 	//draw player rectangle
 	rect(mouseX, 350, 80, 80);	
 	
 }
 
-function draw() {
-	//start game loop
-	if (game_loop){
-		//game processes 
-		background(51);
-		print_score();
-		ball_object();
-		hit_detection();
-		player();
-		
-	}
-	else{
-		//fail screen
-		background(255);
-	
-	}
-	
-}
+
+
+
