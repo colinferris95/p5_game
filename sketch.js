@@ -55,7 +55,7 @@ function reset() {
 	
 	game_loop = true;
 	score = 0;
-	
+	//blocks = [];
 }
 //add to score every second
 window.setInterval(
@@ -73,7 +73,7 @@ function print_score(){
 //ball class
 function ball_object(){
 	this.x = Math.floor(Math.random() * 640);
-	this.y = block_y_position;
+	this.y = Math.floor(Math.random() * 480) + 300
 	this.width = 40;
 	this.accel = 8;
 	
@@ -98,7 +98,7 @@ function ball_object(){
 	
 	this.hitdetection = function(){
 		
-		if (mouseX < this.x && mouseX > this.x - 130 && 350 < this.y && 350 > this.y - 130){
+		if (mouseX + 10 < this.x && mouseX + 10 > this.x - 60 && 380 < this.y && 380 > this.y - 60){
 			fill(128,128,0);
 			game_loop = false;
 			//end game
