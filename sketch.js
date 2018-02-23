@@ -8,6 +8,7 @@ var game_loop = true;
 var button;
 var blocks = [];
 
+
 function setup() {
 	
 	createCanvas(640, 480);
@@ -23,11 +24,19 @@ function setup() {
 	}
 }
 
+if (score == 100){
+	for (var i=0; i<4; i++) {
+		blocks.push(new ball_object());
+	}
+}
+
 function draw() {
 	
 	//start game loop
 	if (game_loop){
 		
+		
+		noCursor();
 		//game processes 
 		background(51);
 		print_score();
@@ -41,12 +50,14 @@ function draw() {
 		
 		player();
 		
+		
+		
 	}
 	else{
 		
 		//fail screen
 		background(255);
-	
+		cursor(ARROW);
 	}
 	
 }
@@ -73,9 +84,9 @@ function print_score(){
 //ball class
 function ball_object(){
 	this.x = Math.floor(Math.random() * 640);
-	this.y = Math.floor(Math.random() * 480) + 300
+	this.y = Math.floor(Math.random() * 480) + 300;
 	this.width = 40;
-	this.accel = 8;
+	this.accel = Math.floor(Math.random() * 12) + 1;
 	
 	this.move = function(){
 		this.y += this.accel;
@@ -113,7 +124,7 @@ function ball_object(){
 function player(){
 	
 	//draw player rectangle
-	rect(mouseX, 350, 80, 80);	
+	rect(mouseX, 350, 40, 40);	
 	
 }
 
