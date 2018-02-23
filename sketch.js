@@ -15,7 +15,7 @@ function setup() {
 	
 	button = createButton('reset');
 	button.position(20, 65);
-	button.mousePressed(reset);
+	button.mousePressed(reset_all);
 	
 	//block = new ball_object();
 	
@@ -62,11 +62,13 @@ function draw() {
 	
 }
 
-function reset() {
+function reset_all() {
 	
-	game_loop = true;
-	score = 0;
-	//blocks = [];
+	for (var i=0; i<blocks.length; i++) {
+	
+		blocks[i].reset();
+	}
+	
 }
 //add to score every second
 window.setInterval(
@@ -86,7 +88,7 @@ function ball_object(){
 	this.x = Math.floor(Math.random() * 640);
 	this.y = Math.floor(Math.random() * 480) + 300;
 	this.width = 40;
-	this.accel = Math.floor(Math.random() * 12) + 1;
+	this.accel = Math.floor(Math.random() * 12) + 5;
 	
 	this.move = function(){
 		this.y += this.accel;
@@ -109,12 +111,19 @@ function ball_object(){
 	
 	this.hitdetection = function(){
 		
-		if (mouseX + 10 < this.x && mouseX + 10 > this.x - 60 && 380 < this.y && 380 > this.y - 60){
+		if (mouseX  < this.x && mouseX  > this.x - 60 && 380 < this.y && 380 > this.y - 60){
 			fill(128,128,0);
 			game_loop = false;
 			//end game
 		}
 		
+	}
+	
+	this.reset = function(){
+		game_loop = true;
+		score = 0;
+		this.x = Math.floor(Math.random() * 640);
+		this.y = Math.floor(Math.random() * 480) + 300;
 	}
 	
 	
