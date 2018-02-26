@@ -88,7 +88,7 @@ function ball_object(){
 	this.x = Math.floor(Math.random() * 640);
 	this.y = Math.floor(Math.random() * 480) + 300;
 	this.width = 40;
-	this.accel = Math.floor(Math.random() * 12) + 5;
+	this.accel = Math.floor(Math.random() * 9) + 5;
 	
 	this.move = function(){
 		this.y += this.accel;
@@ -132,9 +132,14 @@ function ball_object(){
 
 function player(){
 	
-	//draw player rectangle
-	rect(mouseX, 350, 40, 40);	
-	
+	if (mouseX > 590){
+		rect(590, 350, 40, 40);	
+		
+	}
+	else{
+		//draw player rectangle
+		rect(mouseX, 350, 40, 40);	
+	}
 }
 
 
